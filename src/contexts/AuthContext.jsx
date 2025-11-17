@@ -1,15 +1,31 @@
 import React, { createContext, useState, useEffect } from "react";
 import api from "../api.js";
+import jwt_decode from "jwt-decode";   // ✅ ÚNICA IMPORTACIÓN CORRECTA
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
-  // Cargar token del localStorage al iniciar
+  // ---------------------------------------------
+  // CARGAR TOKEN DEL LOCALSTORAGE AL INICIAR
+  // ---------------------------------------------
   useEffect(() => {
     const saved = localStorage.getItem("token");
-    if (saved) setUser({ token: saved });
+    if (saved) {
+      try {
+        const decoded = jwt_decode(saved);
+        setUser({
+          token: saved,
+          name: decoded.username,
+          email: decoded.sub,
+          role: decoded.role,
+        });
+      } catch (err) {
+        console.error("❌ Error decodificando token del localStorage:", err);
+        localStorage.removeItem("token");
+      }
+    }
   }, []);
 
   // ----------------------------------------------------
@@ -20,12 +36,11 @@ export const AuthProvider = ({ children }) => {
       console.log("📤 Enviando registro:", formData);
 
       const payload = {
-  username: formData.name,
-  email: formData.email,
-  password: formData.password,
-  role: formData.role,
-};
-
+        username: formData.name,
+        email: formData.email,
+        password: formData.password,
+        role: formData.role,
+      };
 
       const res = await api.post("/register", payload);
 
@@ -55,7 +70,16 @@ export const AuthProvider = ({ children }) => {
       const token = res.data.access_token;
       localStorage.setItem("token", token);
 
-      setUser({ token });
+      // Decodificar token al loguear
+      const decoded = jwt_decode(token);
+
+      setUser({
+        token,
+        name: decoded.username,
+        email: decoded.sub,
+        role: decoded.role,
+      });
+
       return true;
 
     } catch (err) {
