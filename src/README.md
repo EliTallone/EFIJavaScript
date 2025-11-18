@@ -1,34 +1,136 @@
-# EFI Frontend (React + React Bootstrap)
+README — Frontend EFI JavaScript
+Proyecto: Aplicación Web con React — Práctica Profesionalizante I (JavaScript)
 
-## Qué incluye
-- Registro/Login con JWT (se guarda en localStorage)
-- AuthContext que decodifica el token con jwt-decode
-- CRUD básico para posts y reviews
-- React Router para navegación
-- React Bootstrap para componentes y diseño
-- Axios para llamadas a la API
+Este repositorio contiene el frontend desarrollado en React, que consume la API Flask hecha por el equipo para la Evaluación Final Integradora.
 
-## Cómo usar
-1. Instalar dependencias:
-   npm install
+El sistema incluye autenticación con JWT, CRUD de posts y reviews, rutas protegidas y manejo de roles.
 
-2. Crear un archivo .env en la raíz con:
-   VITE_API_BASE_URL=http://localhost:5000/api
+Integrantes del equipo
 
-3. Ejecutar:
-   npm run dev
+Eliana Magalí Tallone 
+Lucila Giordano 
 
-## Notas
-Asegurate de que el backend Flask entregue los endpoints esperados:
-- POST /auth/register
-- POST /auth/login  -> devuelve { access_token: '...' } o { token: '...' }
-- GET /posts
-- GET /posts/:id
-- POST /posts
-- PUT /posts/:id
-- DELETE /posts/:id
-- GET /reviews
-- POST /reviews
-- DELETE /reviews/:id
+Repositorio del Backend (API Flask)
 
-Si la API tiene nombres diferentes, adaptá src/api.js y los componentes.
+Backend disponible en:
+https://github.com/EliTallone/backend
+
+
+
+
+Tecnologías utilizadas
+
+React con Vite
+
+React Router
+
+React Bootstrap
+
+Axios
+
+JWT Decode
+
+Context API
+
+LocalStorage
+
+Hooks de React (useState, useEffect, useContext)
+
+Requisitos previos
+
+Necesitás tener instalado:
+
+Node.js 16 o superior
+
+npm
+
+
+
+
+Backend corriendo en: http://127.0.0.1:5000/api
+
+Instalación y ejecución
+
+Clonar el repositorio:
+
+git clone https://github.com/EliTallone/EFIJavaScript.git
+cd EFIJavaScript
+
+Instalar dependencias:
+npm install
+
+Ejecutar el servidor de desarrollo:
+npm run dev
+
+
+
+La app queda disponible en:
+
+http://localhost:5173/
+
+
+
+
+Autenticación
+
+Incluye:
+
+Registro de usuarios
+
+Login con JWT
+
+Guardado del token en localStorage
+
+Decodificación del token
+
+Contexto global de usuario
+
+Logout
+
+Rutas protegidas según rol (admin y user)
+
+Funcionalidades implementadas
+Posts
+
+Crear
+
+Listar
+
+Editar
+
+Eliminar
+
+Reviews
+
+Crear
+
+Listar
+
+Editar
+
+Eliminar
+
+Seguridad y roles
+
+Admin: más permisos
+
+User: permisos limitados
+
+
+
+
+
+
+Ejecución del backend
+
+En una terminal aparte:
+cd backend
+source venv/bin/activate
+flask run
+
+
+API base:
+http://127.0.0.1:5000/api
+
+
+
